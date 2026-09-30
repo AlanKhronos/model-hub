@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: 测试 · Node ${{ matrix.node }} · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: 环境信息（证明这是「陌生环境」）
+        run: node -e "console.log('node', process.version, '| platform', process.platform, '| cwd', process.cwd())"
+
+      - name: 语法检查
+        run: |
+          node --check src/model-hub.mjs
+          node --check src/model-health.mjs
+
+      - name: CLI 冒烟测试（无任何凭据环境下能否正常跑）
+        run: node src/model-hub.mjs --help
+
+      - name: 单元 + CLI 测试（22 项）
+        run: npm test
+
+  mcp:
+    name: MCP server 自测
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 安装 mcp 子包依赖
+        working-directory: mcp
+        run: npm install
+      - name: 运行 MCP 自测（校验 stdout 纯净性 + 4 个 tool）
+        working-directory: mcp
+        run: node selftest.mjs
