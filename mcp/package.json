@@ -1,0 +1,20 @@
+{
+  "name": "@alankhronos/model-hub-mcp",
+  "version": "1.0.0",
+  "description": "MCP server exposing model-hub CLI as tools (stdio transport). Main package stays zero-dependency; this sub-package owns the @modelcontextprotocol/sdk dependency.",
+  "type": "module",
+  "bin": { "model-hub-mcp": "./server.mjs" },
+  "engines": { "node": ">=20" },
+  "license": "MIT",
+  "author": "AlanKhronos",
+  "files": ["server.mjs", "selftest.mjs", "README.md"],
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --check server.mjs && node selftest.mjs"
+  },
+  "keywords": ["mcp", "model-context-protocol", "llm", "multi-model", "stdio"],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "4.0.0"
+  }
+}

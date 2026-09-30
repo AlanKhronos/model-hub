@@ -104,6 +104,16 @@ NVIDIA_API_KEY: yyy
 - 长文本（≥20k tokens）喂本地 7B 会「重审代替汇总」——请用 `run --model <云端>` 显式指定（`--tokens` 给足，推理型模型至少 2000+）。
 - 不做任何网络代理；被墙平台不可达时需要自行搭建通道（`OLLAMA_URL` / provider 的 `baseURL` 都可改）。
 
+## 作为 MCP server 使用
+
+本项目自带一个 [MCP](https://modelcontextprotocol.io) server（位于 [`mcp/`](mcp/)），让 Claude Desktop / Cursor / Cline 等 MCP 客户端能直接调用多模型调度能力。
+
+**主包保持零依赖** —— MCP server 的 `@modelcontextprotocol/sdk` 依赖声明在独立的 `mcp/package.json` 里，根 `package.json` 的 `dependencies` 不受影响。
+
+暴露 4 个 tool：`dispatch`（派发文本给多模型）、`list_channels`（通道与额度占用）、`strategy_rank`（通道排序）、`gate_stats`（行为统计）。传输方式 stdio，所有日志走 stderr。
+
+详细配置方法见 **[mcp/README.md](mcp/README.md)**。
+
 ## License
 
 MIT —— 详见 [LICENSE](LICENSE)。
