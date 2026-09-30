@@ -1,9 +1,6 @@
 # model-hub（模型中枢）
 
-> ⚠️ **发布前必做（本包目前是占位名，不能直接 publish）**：
-> ① 把 `package.json` 里的 `"name": "@your-npm-name/model-hub"` 换成你自己的 npm 账号名，例如 `@yourname/model-hub`；
-> ② 把本 README 里所有 `@your-npm-name/model-hub` 一并替换；
-> ③ `LICENSE` 的版权行可按需改成你的名字。JSON 里不能写注释，所以把这个说明放在这里。
+> 📦 **npm 官方包（`@alankhronos/model-hub`）发布待定**，届时可用 `npx @alankhronos/model-hub`。当前以 GitHub 为唯一分发渠道，安装方式见下方「安装」一节。
 
 多模型集成工作流引擎 —— **一张路由表 + 一条降级链**，把「用哪个 provider / 哪个 model / 失败了怎么办」收敛成一个 CLI：
 本地 Ollama 优先、云端免费档兜底、失败自动降级、产出自动校验、用量自动记账。**零依赖**（仅 Node ≥ 20 原生能力）。
@@ -12,15 +9,29 @@
 
 **静态路由表 →（可选）按历史成功率×延迟×成本重排 → 串行降级链（fanout 为并发全派）→ 熔断健康表 + JSONL 账本**，全部逻辑在 `src/model-hub.mjs` 一个文件里；`src/model-health.mjs` 提供 402/429 指数退避冷却与 401/403/404 永久禁用的熔断能力。
 
-## Quick Start
+## 安装
+
+> npm 官方包（`@alankhronos/model-hub`）发布待定，届时可用 `npx @alankhronos/model-hub`。当前以 GitHub 为唯一分发渠道。
 
 ```bash
-npx -y @your-npm-name/model-hub --help                # 用法清单（含环境变量说明）
-npx -y @your-npm-name/model-hub list --debug-creds    # 通道与路由表，key 来自 env 还是 file
-npx -y @your-npm-name/model-hub probe                 # 探测各通道可用性（有 key 才发请求）
-npx -y @your-npm-name/model-hub run summarize --text "要压缩的长文本"
-npx -y @your-npm-name/model-hub fanout --in material.txt --task extract   # 全通道并发派发
-npx -y @your-npm-name/model-hub usage --days 7        # 额度账本：各家用了几次 / 占周期上限多少
+# 方式一：直接用 npx 从 GitHub 跑（无需安装）
+npx github:AlanKhronos/model-hub --help
+
+# 方式二：全局安装
+npm i -g github:AlanKhronos/model-hub
+model-hub --help
+```
+
+## Quick Start
+
+全局安装后可直接用 `model-hub`（未安装时把下列命令前缀换成 `npx github:AlanKhronos/model-hub`）：
+
+```bash
+model-hub list --debug-creds    # 通道与路由表，key 来自 env 还是 file
+model-hub probe                 # 探测各通道可用性（有 key 才发请求）
+model-hub run summarize --text "要压缩的长文本"
+model-hub fanout --in material.txt --task extract   # 全通道并发派发
+model-hub usage --days 7        # 额度账本：各家用了几次 / 占周期上限多少
 ```
 
 本机跑通的最短路径：本地 Ollama 无需任何 key → `node src/model-hub.mjs list` / `run summarize --text "你好"`（会走本地通道）。

@@ -1,11 +1,20 @@
 {
-  "name": "@your-npm-name/model-hub",
+  "name": "@alankhronos/model-hub",
   "version": "1.0.0",
   "description": "模型中枢（Model Hub）——多模型集成工作流引擎：一张路由表 + 一条降级链，统一调度本地 Ollama 与多家云端 LLM（fanout/run/ask/probe/usage/gate/strategy），零依赖。",
   "type": "module",
   "bin": { "model-hub": "./src/model-hub.mjs" },
   "engines": { "node": ">=20" },
   "license": "MIT",
+  "author": "AlanKhronos",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlanKhronos/model-hub.git"
+  },
+  "homepage": "https://github.com/AlanKhronos/model-hub#readme",
+  "bugs": {
+    "url": "https://github.com/AlanKhronos/model-hub/issues"
+  },
   "files": ["src/", "README.md", "LICENSE"],
   "scripts": {
     "test": "node --check src/model-hub.mjs && node --check src/model-health.mjs"
