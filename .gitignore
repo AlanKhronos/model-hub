@@ -1,0 +1,17 @@
+# ── 用户要求的条目（verbatim） ──
+node_modules/
+*.log
+*.jsonl
+.env
+tools/archive/
+.credentials*
+
+# ── 补充：本项目运行时产物（都可重生成，无需入库） ──
+# 熔断健康表（默认写在运行目录，见 README）
+model-health.json
+# fanout 归档 / usage 账本（默认在脚本同目录 archive/，或 MODELHUB_ARCHIVE_DIR 指向处）
+archive/
+
+# npm 打包 / 测试临时文件
+*.tgz
+.tmp-*
