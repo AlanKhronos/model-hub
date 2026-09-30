@@ -1,5 +1,13 @@
 # model-hub（模型中枢）
 
+[![CI](https://github.com/AlanKhronos/model-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/AlanKhronos/model-hub/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](https://nodejs.org)
+
+> **"别人 clone 下来能跑吗？"—— CI 已经证明能。**
+> 每次推送都在 GitHub 的**全新容器**里跑（Ubuntu + Windows × Node 20/22/24，共 7 个 job），
+> **不依赖作者本机环境**（无凭据文件、无 Ollama、无任何预装）。点上方 CI 徽章可查看每次运行的完整日志。
+
 > 📦 **npm 官方包（`@alankhronos/model-hub`）发布待定**，届时可用 `npx @alankhronos/model-hub`。当前以 GitHub 为唯一分发渠道，安装方式见下方「安装」一节。
 
 多模型集成工作流引擎 —— **一张路由表 + 一条降级链**，把「用哪个 provider / 哪个 model / 失败了怎么办」收敛成一个 CLI：
