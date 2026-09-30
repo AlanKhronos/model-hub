@@ -17,7 +17,8 @@
   },
   "files": ["src/", "README.md", "LICENSE"],
   "scripts": {
-    "test": "node --check src/model-hub.mjs && node --check src/model-health.mjs"
+    "test": "node --test",
+    "lint": "node --check src/model-hub.mjs && node --check src/model-health.mjs"
   },
   "keywords": ["llm", "multi-model", "router", "ollama", "openai-compatible", "cli", "fanout", "model-routing"],
   "dependencies": {}
